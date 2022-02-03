@@ -5,11 +5,11 @@ module.exports = function () {
     // подключение БД
     const connection = mysql
         .createConnection({
-            host: "localhost",
+            host: "sql11.freesqldatabase.com",
             port: 3306,
-            user: "root",
-            database: "business_helper",
-            password: "im0bilaiZER",
+            user: "sql11469385",
+            database: "sql11469385",
+            password: "KXdMjU1j64",
         })
         .promise();
     // console.log(connection);
