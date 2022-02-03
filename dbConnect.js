@@ -1,7 +1,7 @@
 // Подключение к базе данных
 const mysql = require("mysql2");
 
-module.exports = function () {
+module.exports = function (req, res) {
     // подключение БД
     const connection = mysql
         .createConnection({
@@ -12,12 +12,12 @@ module.exports = function () {
             password: "KXdMjU1j64",
         })
         .promise();
-    // console.log(connection);
 
     // проверка подключения к БД
     connection.connect((err) => {
         if (err) {
             console.log(err);
+            res.status(400).json({ message: err });
         } else {
             console.log("Connection to MySQL-SERVER success");
         }

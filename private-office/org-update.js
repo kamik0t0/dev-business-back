@@ -16,7 +16,7 @@ module.exports = async function (req, res) {
         } = req.body;
         // console.log(email, kpp, director)
         // ищем пользователя с нужным email
-        const [user] = await DBCONNECT().query(
+        const [user] = await DBCONNECT(req, res).query(
             `SELECT * FROM Users WHERE email = "${email}"`
         );
 
@@ -31,7 +31,7 @@ module.exports = async function (req, res) {
         const id = user[0].id;
         console.log(id);
         // проверяем есть ли организация в БД
-        const [rows] = await DBCONNECT().query(
+        const [rows] = await DBCONNECT(req, res).query(
             `SELECT * FROM Orgs WHERE inn = ${upINN}`
         );
         console.log(rows);
@@ -66,7 +66,7 @@ module.exports = async function (req, res) {
         );
 
         // создаем организацию
-        DBCONNECT()
+        DBCONNECT(req, res)
             .query(
                 makeQuery(
                     { orgname: orgname },

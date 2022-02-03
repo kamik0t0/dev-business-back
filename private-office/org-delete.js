@@ -8,7 +8,7 @@ module.exports = async function (req, res) {
         if (req.query.orgname) {
             const DELORG = req.query.orgname;
             console.log(DELORG);
-            const [result] = await DBCONNECT().query(
+            const [result] = await DBCONNECT(req, res).query(
                 `SELECT 
             orgname
         FROM
@@ -26,7 +26,7 @@ module.exports = async function (req, res) {
 
             const [{ orgname }] = result;
             console.log(orgname);
-            await DBCONNECT()
+            await DBCONNECT(req, res)
                 .query(
                     `DELETE FROM Orgs 
                 WHERE

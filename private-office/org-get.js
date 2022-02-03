@@ -6,7 +6,7 @@ module.exports = async function (req, res) {
         // обработка запроса на список организаций пользователя
         if (req.query.UserId) {
             const UserId = req.query.UserId;
-            const [result] = await DBCONNECT().query(
+            const [result] = await DBCONNECT(req, res).query(
                 `SELECT * FROM Orgs WHERE UserId = ${UserId}`
             );
             await res.status(200).json(result);

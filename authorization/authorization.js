@@ -12,11 +12,11 @@ module.exports = async function (req, res) {
         console.log(req.get("host"));
         const { email, pass } = req.fields;
         // поиск пользователя
-        let [rows] = await DBCONNECT()
+        let [rows] = await DBCONNECT(req, res)
             .query(`SELECT * FROM Users WHERE email = "${email}"`)
             .catch((err) => {
                 console.log(err);
-                res.status(200).json({ message: err });
+                res.status(400).json({ message: err });
             });
         // если пользователь не существует...
         if (rows.length === 0) {

@@ -8,9 +8,12 @@ module.exports = async function (req, res) {
     try {
         const { email, pass } = req.fields;
         // Проверка существования пользователя
-        let [rows] = await DBCONNECT().query(
-            `SELECT * FROM Users WHERE email = "${email}"`
-        );
+        let [rows] = await DBCONNECT(req, res)
+            .query(`SELECT * FROM Users WHERE email = "${email}"`)
+            .catch((err) => {
+                console.log(err);
+                res.status(400).json({ message: err });
+            });
         // если пользователь не существует...
         if (rows.length === 0) {
             //... сообщаем
@@ -28,7 +31,7 @@ module.exports = async function (req, res) {
             .then(() => bcrypt.hash(pass, 7))
             // замена пароля
             .then((hashPassword) => {
-                DBCONNECT().query(
+                DBCONNECT(req, res).query(
                     `UPDATE Users SET password = "${hashPassword}" WHERE email = "${email}"`
                 );
             })
@@ -42,7 +45,7 @@ module.exports = async function (req, res) {
             .catch((error) => {
                 console.log(error);
                 res.status(400).json({
-                    message: `Неверно указан e-mail. Попробуйте снова.`,
+                    message: error,
                 });
             });
         // ответ клиенту

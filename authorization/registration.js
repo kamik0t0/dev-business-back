@@ -8,14 +8,18 @@ module.exports = async function (req, res) {
     try {
         const { email, pass } = req.fields;
         // Проверка существования пользователя
-        let [rows] = await DBCONNECT().query(
-            `SELECT * FROM Users WHERE email = "${email}"`
-        );
+        let [rows] = await DBCONNECT(req, res)
+            .query(`SELECT * FROM Users WHERE email = "${email}"`)
+            .catch((err) => {
+                console.log(err);
+                res.status(400).json({ message: err });
+            });
         console.log(rows);
         // Если существует сообщаем клиенту
         if (rows.length !== 0) {
             res.status(400).json({
-                message: `User with email ${email} already exist`,
+                message: `Пользователь с email ${email} уже зарегистрирован`,
+                // message: `User with email ${email} already exist`,
             });
             return;
         }
@@ -27,7 +31,7 @@ module.exports = async function (req, res) {
             .then(() => bcrypt.hash(pass, 7))
             //... создается
             .then((hashPassword) => {
-                DBCONNECT().query(
+                DBCONNECT(req, res).query(
                     `INSERT Users(createdAt, email, password) VALUES(NOW(),"${email}", "${hashPassword}")`
                 );
             })
@@ -37,11 +41,10 @@ module.exports = async function (req, res) {
                     message: `You successfuly registered with email ${email}`,
                 });
             })
-
             .catch((error) => {
                 console.log(error);
                 res.status(400).json({
-                    message: `Неверно указан e-mail. Попробуйте снова.`,
+                    message: error,
                 });
             });
     } catch (error) {
