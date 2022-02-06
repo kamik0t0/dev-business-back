@@ -14,7 +14,7 @@ module.exports = async function (req, res) {
             director = null,
             address = null,
         } = req.body;
-        // console.log(email, kpp, director)
+        // console.log(upINN, email, opf, orgname, inn, kpp, director, address);
         // ищем пользователя с нужным email
         const [user] = await DBCONNECT(req, res).query(
             `SELECT * FROM Users WHERE email = "${email}"`
@@ -56,15 +56,6 @@ module.exports = async function (req, res) {
             return `UPDATE Orgs SET ${params} WHERE inn = ${upINN}`;
         }
 
-        makeQuery(
-            { orgname: orgname },
-            { inn: inn },
-            { kpp: kpp },
-            { address: address },
-            { director: director },
-            { opf: opf }
-        );
-
         // создаем организацию
         DBCONNECT(req, res)
             .query(
@@ -77,6 +68,12 @@ module.exports = async function (req, res) {
                     { opf: opf }
                 )
             )
+            .then(() => {
+                res.status(200).json({
+                    updated: true,
+                    message: `You successfuly update`,
+                });
+            })
             .catch((error) => {
                 console.log(error);
                 res.status(400).json({
@@ -84,10 +81,6 @@ module.exports = async function (req, res) {
                 });
             });
         //... ответ клиенту
-        res.status(200).json({
-            updated: true,
-            message: `You successfuly update`,
-        });
     } catch (error) {
         console.log(error);
     }
