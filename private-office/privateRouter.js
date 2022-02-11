@@ -1,18 +1,18 @@
 // Роутинг личного кабинета
 const Router = require("express");
 const router = new Router();
-const create = require("../private-office/org-create.js");
-const getOrgs = require("./org-get.js");
-const delOrg = require("./org-delete.js");
-const patchOrg = require("./org-update.js");
+const create = require("../crud-functions/org-create.js");
+const getOrgs = require("../crud-functions/org-get.js");
+const delOrg = require("../crud-functions/org-delete.js");
+const patchOrg = require("../crud-functions/org-update.js");
 
 // обработка private/create
-router.post("/", create);
+router.post("/", (req, res) => create(req, res, "Orgs"));
 // обработка private
-router.get("/", getOrgs);
+router.get("/", (req, res) => getOrgs(req, res, "Orgs"));
 // обработка private
-router.delete("/", delOrg);
+router.delete("/", (req, res) => delOrg(req, res, "Orgs"));
 // обработка private
-router.patch("/", patchOrg);
+router.patch("/", (req, res) => patchOrg(req, res, "Orgs"));
 
 module.exports = router;
