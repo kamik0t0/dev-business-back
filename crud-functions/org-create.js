@@ -18,6 +18,7 @@ module.exports = async function (req, res, table, foreignKey) {
         const [rows] = await DBCONNECT(req, res).query(
             `SELECT * FROM ${table} WHERE inn = ${inn}`
         );
+        // если зарегистрирована то отправляем ответ
         if (rows.length !== 0) {
             res.status(400).json({
                 message: `Organization with INN ${inn} already exist`,
