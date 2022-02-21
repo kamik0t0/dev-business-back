@@ -7,6 +7,8 @@ const setHeaders = require("./middleware/headers.js");
 const authMiddleware = require("./authorization/authMiddleware.js");
 const privateRouter = require("./routers/privateRouter.js");
 const counterpartyRouter = require("./routers/counterpartyRouter.js");
+const salesRouter = require("./routers/salesRouter.js");
+const purchasesRouter = require("./routers/purchasesRouter.js");
 
 // Заголовки:
 app.use(setHeaders);
@@ -20,5 +22,9 @@ app.use("/login", authRouter);
 app.use("/private", privateRouter);
 // Работа с контрагентами
 app.use("/counterparty", counterpartyRouter);
+// Работа с продажами
+app.use("/sales", salesRouter);
+// Работа с продажами
+app.use("/purchases", purchasesRouter);
 // старт сервера
 app.listen(PORT, () => console.log(`SERVER STARTS ON PORT ${PORT}`));
