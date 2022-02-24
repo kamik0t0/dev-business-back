@@ -1,10 +1,9 @@
 const DBCONNECT = require("../../../../dbConnect.js");
 
 module.exports = async function (req, res, table, foreignKey) {
-    console.log("PURCHASES");
     const id = req.query[foreignKey];
     DBCONNECT(req, res)
-        .query(`SELECT * FROM ${table}`)
+        .query(`SELECT * FROM ${table} WHERE ${foreignKey} = ${id}`)
         .then(([result]) => {
             return res.status(200).json(result);
         })

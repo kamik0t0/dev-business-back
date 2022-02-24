@@ -5,7 +5,8 @@ module.exports = async function (
     req,
     res,
     table,
-    foreignKey,
+    CounterpartyId_Key,
+    OrgId_Key,
     {
         wbItems,
         summ,
@@ -15,8 +16,10 @@ module.exports = async function (
         myOrg,
         counterparty,
         counterpartyId,
+        orgId,
     } = req.body
 ) {
+    console.log(OrgId_Key, orgId);
     let { orgname, inn, kpp = null, address, opf } = myOrg,
         {
             orgname: cl_orgname,
@@ -29,7 +32,7 @@ module.exports = async function (
     DBCONNECT(req, res)
         // вставляем реквизиты накладной в таблицу sales
         .query(
-            `INSERT ${table}(${foreignKey}, createdAt, orgname, inn, kpp, address,opf, cl_orgname, cl_inn, cl_kpp, cl_address, cl_opf, summ, nds, total, waybill_date) VALUES (${counterpartyId}, NOW(), "${orgname}", "${inn}", "${kpp}", "${address}", "${opf}", "${cl_orgname}", "${cl_inn}", "${cl_kpp}", "${cl_address}", "${cl_opf}", "${summ}", "${NDS}", "${total}", "${date.slice(
+            `INSERT ${table}(${CounterpartyId_Key}, ${OrgId_Key}, createdAt, orgname, inn, kpp, address,opf, cl_orgname, cl_inn, cl_kpp, cl_address, cl_opf, summ, nds, total, waybill_date) VALUES (${counterpartyId}, ${orgId}, NOW(), "${orgname}", "${inn}", "${kpp}", "${address}", "${opf}", "${cl_orgname}", "${cl_inn}", "${cl_kpp}", "${cl_address}", "${cl_opf}", "${summ}", "${NDS}", "${total}", "${date.slice(
                 0,
                 -1
             )}");`
@@ -49,6 +52,7 @@ module.exports = async function (
             });
         })
         .catch((error) => {
+            console.log(error);
             return res.status(400).json({
                 message: error,
             });

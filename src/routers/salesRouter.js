@@ -6,8 +6,10 @@ const read = require("../crud-functions/org-get.js");
 const deleteOrg = require("../crud-functions/org-delete.js");
 const updateOrg = require("../crud-functions/org-update.js");
 
-router.post("/", (req, res) => create(req, res, "Sales", "CounterpartyId"));
-router.get("/", (req, res) => read(req, res, "Sales", "CounterpartyId"));
+router.post("/", (req, res) =>
+    create(req, res, "Sales", "CounterpartyId", "OrgId")
+);
+router.get("/", (req, res) => read(req, res, "Sales", "OrgId"));
 router.delete("/", (req, res) => deleteOrg(req, res, "Sales"));
 router.patch("/", (req, res) => updateOrg(req, res, "Sales"));
 
