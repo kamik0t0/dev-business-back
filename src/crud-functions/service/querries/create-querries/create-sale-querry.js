@@ -8,7 +8,7 @@ module.exports = async function (
     CounterpartyId_Key,
     OrgId_Key,
     {
-        wbItems,
+        positions,
         summ,
         NDS,
         total,
@@ -19,7 +19,7 @@ module.exports = async function (
         orgId,
     } = req.body
 ) {
-    console.log(OrgId_Key, orgId);
+    console.log(req.body);
     let { orgname, inn, kpp = null, address, opf } = myOrg,
         {
             orgname: cl_orgname,
@@ -39,7 +39,7 @@ module.exports = async function (
         )
         .then(([{ insertId }]) => {
             // выставляем каждую позиция в накладной в таблицу sales_items
-            for (const item of wbItems) {
+            for (const item of positions) {
                 DBCONNECT(req, res).query(
                     `INSERT sales_items (createdAt, SaleId, item_number, nomenclature, quantity, price, summ, nds_percent, nds, total) VALUES (NOW(), "${insertId}", "${item.number}", "${item.nomenclature}", "${item.quantity}", "${item.price}", "${item.summ}", "${item.NDSprcnt}", "${item.NDS}", "${item.total}");`
                 );
