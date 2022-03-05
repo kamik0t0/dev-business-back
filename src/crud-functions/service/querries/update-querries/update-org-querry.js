@@ -1,5 +1,5 @@
 const DBCONNECT = require("../../../../dbConnect.js");
-// функция формирует строку запроса для обновления данных только по измененным полям
+// функция формирует строку запроса для обновления данных
 module.exports = function (req, res, table) {
     let {
         upINN,
