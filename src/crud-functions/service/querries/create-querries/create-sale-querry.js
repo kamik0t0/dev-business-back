@@ -19,7 +19,7 @@ module.exports = async function (
         orgId,
     } = req.body
 ) {
-    console.log(req.body);
+    console.log(date);
     let { orgname, inn, kpp = null, address, opf } = myOrg,
         {
             orgname: cl_orgname,

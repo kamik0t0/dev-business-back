@@ -12,7 +12,6 @@ module.exports = async function (
     foreignKey_2,
     { inn } = req.body
 ) {
-    console.log(table);
     // в зависимости от таблицы выполняется соответствующая логика
     switch (table) {
         case "Sales":

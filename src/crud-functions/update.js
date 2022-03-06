@@ -1,14 +1,19 @@
 const updateOrgQuerry = require("./service/querries/update-querries/update-org-querry.js");
-const updateSaleQuerry = require("./service/querries/update-querries/update-sale-querry.js");
-const updatePurchaseQuerry = require("./service/querries/update-querries/update-purchase-querry.js");
+const updateWaybillQuerry = require("./service/querries/update-querries/update-waybill-querry.js");
+
 module.exports = async function (req, res, table) {
-    console.log(table);
     switch (table) {
         case "Sales":
-            updateSaleQuerry(req, res, table);
+            updateWaybillQuerry(req, res, table, "sales_items", "SaleId");
             break;
         case "Purchases":
-            updatePurchaseQuerry(req, res, table);
+            updateWaybillQuerry(
+                req,
+                res,
+                table,
+                "purchases_items",
+                "PurchaseId"
+            );
             break;
         default:
             updateOrgQuerry(req, res, table);

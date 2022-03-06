@@ -1,19 +1,22 @@
+// Обновление
 const DBCONNECT = require("../../../../dbConnect.js");
-// функция формирует строку запроса для обновления данных только по измененным полям
-/* Изменению подлежат данные о сумме (summ), НДС(NDS), сумме+НДС(total), дате (Waybill_date), контрагенте (counterparty),   */
+
 module.exports = function (
     req,
     res,
     table,
+    items,
+    itemIdName,
     {
         id = null,
         NDS: nds = null,
         Waybill_date: waybill_date = null,
         counterparty,
         counterpartyId: CounterpartyId = null,
-        positions: updateSale_items,
+        positions: update_items,
         summ = null,
         total = null,
+        cl_waybill_number = null,
     } = req.body
 ) {
     let {
@@ -27,14 +30,15 @@ module.exports = function (
         opf: cl_opf = null,
         orgname: cl_orgname = null,
     } = counterparty;
+    // console.log(req.body);
     // создаем накладную
     DBCONNECT(req, res)
         .query(
-            updateSaleQuerry(
+            updateWaybillQuerry(
                 table,
                 id,
                 { nds: nds },
-                { waybill_date: waybill_date },
+                { waybill_date: waybill_date.slice(0, -1) },
                 { cl_acc: cl_acc },
                 { cl_address: cl_acc },
                 { cl_bank: cl_bank },
@@ -55,42 +59,47 @@ module.exports = function (
                 { cl_korr: cl_korr },
                 { cl_kpp: cl_kpp },
                 { cl_opf: cl_opf },
-                { cl_orgname: cl_orgname }
+                { cl_orgname: cl_orgname },
+                { cl_waybill_number: cl_waybill_number }
             )
         )
         .then(async () => {
-            const [sale_items] = await DBCONNECT(req, res).query(
-                `Select * from sales_items where SaleId = ${id}`
+            // получаем товары из накладной
+            const [itemsInDB] = await DBCONNECT(req, res).query(
+                `Select * from ${items} where ${itemIdName} = ${id}`
             );
 
+            // создаем массив из id товаров в накладной полученных из БД
             let idArray = [];
-            sale_items.forEach((oldItem) => {
+            itemsInDB.forEach((oldItem) => {
                 idArray.push(oldItem.id);
             });
 
-            let idUpdateArray = [];
-            updateSale_items.forEach((newItem) => {
-                idUpdateArray.push(newItem.id);
-            });
-
-            for (const item of updateSale_items) {
+            for (const item of update_items) {
                 // если id итерируемой накладной уже есть в БД - обновление данных
                 if (idArray.includes(item.id)) {
                     DBCONNECT(req, res).query(
-                        `UPDATE sales_items SET item_number = "${item.number}", nomenclature = "${item.nomenclature}", quantity = ${item.quantity}, price = "${item.price}", summ = ${item.summ}, nds_percent = ${item.NDSprcnt}, nds = ${item.NDS}, total = ${item.total} WHERE id = ${item.id};`
+                        `UPDATE ${items} SET item_number = "${item.number}", nomenclature = "${item.nomenclature}", quantity = ${item.quantity}, price = "${item.price}", summ = ${item.summ}, nds_percent = ${item.NDSprcnt}, nds = ${item.NDS}, total = ${item.total} WHERE id = ${item.id};`
                     );
-                    // если id итерируемой отсутствует в БД - создание новой записи
+                    // если id итерируемой накладной отсутствует в БД - создание новой записи
                 } else if (!idArray.includes(item.id) && item.id === null) {
                     DBCONNECT(req, res).query(
-                        `INSERT sales_items (createdAt, SaleId, item_number, nomenclature, quantity, price, summ, nds_percent, nds, total) VALUES (NOW(), "${id}", "${item.number}", "${item.nomenclature}", "${item.quantity}", "${item.price}", "${item.summ}", "${item.NDSprcnt}", "${item.NDS}", "${item.total}");`
+                        `INSERT ${items} (createdAt, ${itemIdName}, item_number, nomenclature, quantity, price, summ, nds_percent, nds, total) VALUES (NOW(), "${id}", "${item.number}", "${item.nomenclature}", "${item.quantity}", "${item.price}", "${item.summ}", "${item.NDSprcnt}", "${item.NDS}", "${item.total}");`
                     );
                 }
             }
-            // если позиции удалялись - удаление записи
+
+            // создаем массив из id товаров пришедших от клиента
+            let idUpdateArray = [];
+            update_items.forEach((newItem) => {
+                idUpdateArray.push(newItem.id);
+            });
+
+            // если позиция удалена - удаление записи
             idArray.forEach((id) => {
                 if (!idUpdateArray.includes(id)) {
                     DBCONNECT(req, res).query(
-                        `DELETE FROM sales_items WHERE id = ${id}`
+                        `DELETE FROM ${items} WHERE id = ${id}`
                     );
                 }
             });
@@ -109,13 +118,14 @@ module.exports = function (
         });
 };
 
-function updateSaleQuerry(table, id, ...args) {
-    let queryParams = args
+// функция формирует строку запроса для обновления данных
+function updateWaybillQuerry(table, id, ...args) {
+    let querryString = args
         .filter((obj) => Object.values(obj)[0] !== null)
         .map((obj) =>
             `"${[Object.keys(obj)]} = "${[Object.values(obj)]}""`.slice(1, -1)
         )
         .join(", ");
 
-    return `UPDATE ${table} SET ${queryParams} WHERE id = ${id};`;
+    return `UPDATE ${table} SET ${querryString} WHERE id = ${id};`;
 }
