@@ -8,7 +8,7 @@ module.exports = function (req, res) {
             host: "localhost",
             port: 3306,
             user: "root",
-            database: "business_helper",
+            database: "acc_helper",
             password: "im0bilaiZER",
         })
         .promise();
