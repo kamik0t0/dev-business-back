@@ -1,10 +1,9 @@
 // Подключение к базе данных
 const mysql = require("mysql2");
 
-module.exports = function (req, res) {
-    // подключение БД
-    const connection = mysql
-        .createConnection({
+function DBCONNECT() {
+    return mysql
+        .createPool({
             host: "localhost",
             port: 3306,
             user: "root",
@@ -12,20 +11,12 @@ module.exports = function (req, res) {
             password: "im0bilaiZER",
         })
         .promise();
+}
 
-    // проверка подключения к БД
-    connection.connect((err) => {
-        if (err) {
-            console.log(err);
-            res.status(400).json({ message: err });
-        } else {
-            console.log("Connection to MySQL-SERVER success");
-        }
-    });
-    return connection;
-};
+module.exports = DBCONNECT();
 
-/* 
+/* Пишу здесь эти данные поскольку по факту они не имеют никакого значения и вся информация в базе не имеет никакой реальной ценности, т.е. я понимаю что в реальном проекте так делать не надо ;)
+
     const connection = mysql
         .createConnection({
             host: "localhost",

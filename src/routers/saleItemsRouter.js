@@ -1,8 +1,8 @@
 // Роутинг личного кабинета
 const Router = require("express");
 const router = new Router();
-const read = require("../crud-functions/read.js");
+const getSaleItemsController = require("../controllers/sales/items/getSaleItemsController.js");
 
-router.get("/", (req, res) => read(req, res, "sales_items", "SaleId"));
+router.get("/", getSaleItemsController);
 
 module.exports = router;
