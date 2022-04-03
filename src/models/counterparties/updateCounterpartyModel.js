@@ -13,7 +13,7 @@ module.exports = async function (data, table) {
         address = null,
     } = data;
     // создаем организацию
-    DBCONNECT.query(
+    return DBCONNECT.query(
         makeUpdateOrgQuery(
             table,
             id,

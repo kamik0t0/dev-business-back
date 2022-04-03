@@ -1,13 +1,13 @@
 const bcrypt = require("bcryptjs");
-const mail = require("../service/authorization/mailService.js");
-const getUserModel = require("../models/user/getUserModel.js");
-const insertUserModel = require("../models/user/insertUserModel.js");
-const regService = require("../service/authorization/regService.js");
+const mail = require("../../service/authorization/mailService.js");
+const getUserModel = require("../../models/user/getUserModel.js");
+const insertUserModel = require("../../models/user/insertUserModel.js");
+const regService = require("../../service/authorization/regService.js");
 
 jest.mock("bcryptjs");
-jest.mock("../service/authorization/mailService.js");
-jest.mock("../models/user/insertUserModel.js");
-jest.mock("../models/user/getUserModel.js");
+jest.mock("../../service/authorization/mailService.js");
+jest.mock("../../models/user/insertUserModel.js");
+jest.mock("../../models/user/getUserModel.js");
 
 const testObj = {
     email: "zo-danbuh@mail.ru",
@@ -61,6 +61,7 @@ describe("reg service Test", () => {
             )
         );
     });
+
     afterEach(() => {
         jest.clearAllMocks();
     });

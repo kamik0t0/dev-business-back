@@ -16,15 +16,17 @@ module.exports = async function (data, table, id) {
         items.forEach((oldItem) => {
             idArray.push(oldItem.id);
         });
+
         for (const item of positions) {
             // если id итерируемой накладной уже есть в БД - обновление данных
             if (idArray.includes(item.id)) {
                 updateSaleItemsModel(item);
                 // если id итерируемой накладной отсутствует в БД - создание новой записи
-            } else if (!idArray.includes(item.id) && item.id === null) {
+            } else if (!idArray.includes(item.id) /* && item.id === null */) {
                 postSaleItemsModel(id, item);
             }
         }
+
         positions.forEach((newItem) => {
             idUpdateArray.push(newItem.id);
         });

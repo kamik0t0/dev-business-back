@@ -17,7 +17,9 @@ module.exports = function (req, res, next) {
         // если получили то сверяем с ключем
         jwt.verify(token, secret);
         // отправляем ответ клиенту
-        res.status(200).json({ auth: true, token, message: "user authorized" });
+        return res
+            .status(200)
+            .json({ auth: true, token, message: "user authorized" });
         // в случае ошибки предлагаем авторизоваться
     } catch (error) {
         return res.status(400).json({ message: "Please login" });

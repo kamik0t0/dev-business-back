@@ -21,7 +21,7 @@ module.exports = async function (data, table, id) {
             if (idArray.includes(item.id)) {
                 updatePurchaseItemsModel(item);
                 // если id итерируемой позиции отсутствует в БД - создание новой записи
-            } else if (!idArray.includes(item.id) && item.id === null) {
+            } else if (!idArray.includes(item.id) /* && item.id === null */) {
                 postPurchaseItemsModel(id, item);
             }
         }

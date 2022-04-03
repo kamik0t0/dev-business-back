@@ -1,8 +1,8 @@
-const authService = require("../service/authorization/authService.js");
-const getUserModel = require("../models/user/getUserModel.js");
+const authService = require("../../service/authorization/authService.js");
+const getUserModel = require("../../models/user/getUserModel.js");
 const bcrypt = require("bcryptjs");
 
-jest.mock("../models/user/getUserModel.js");
+jest.mock("../../models/user/getUserModel.js");
 jest.mock("bcryptjs");
 
 describe("authService test", () => {

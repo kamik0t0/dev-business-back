@@ -1,13 +1,13 @@
 const bcrypt = require("bcryptjs");
-const mail = require("../service/authorization/mailService.js");
-const getUserModel = require("../models/user/getUserModel.js");
-const updateUserModel = require("../models/user/updateUserModel.js");
-const recoverService = require("../service/authorization/recoverService.js");
+const mail = require("../../service/authorization/mailService.js");
+const getUserModel = require("../../models/user/getUserModel.js");
+const updateUserModel = require("../../models/user/updateUserModel.js");
+const recoverService = require("../../service/authorization/recoverService.js");
 
 jest.mock("bcryptjs");
-jest.mock("../service/authorization/mailService.js");
-jest.mock("../models/user/getUserModel.js");
-jest.mock("../models/user/updateUserModel.js");
+jest.mock("../../service/authorization/mailService.js");
+jest.mock("../../models/user/getUserModel.js");
+jest.mock("../../models/user/updateUserModel.js");
 
 const testObj = {
     email: "zo-danbuh@mail.ru",

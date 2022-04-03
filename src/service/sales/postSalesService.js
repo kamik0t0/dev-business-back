@@ -10,9 +10,9 @@ module.exports = async function (data, OrgId, CounterpartyId) {
             ),
             { positions } = data;
 
-        for (const item of positions) {
+        positions.forEach((item) => {
             postSaleItemsModel(insertId, item);
-        }
+        });
 
         return {
             created: true,
