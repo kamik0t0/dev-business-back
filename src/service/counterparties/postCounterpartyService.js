@@ -1,13 +1,8 @@
 const createCounterpartyModel = require("../../models/counterparties/postCounterpartyModel.js");
 
-module.exports = async function (
-    data,
-    table,
-    foreignKey,
-    { inn, orgname } = data
-) {
+module.exports = async function (data, foreignKey, { inn, orgname } = data) {
     try {
-        await createCounterpartyModel(data, table, foreignKey);
+        await createCounterpartyModel(data, foreignKey);
         return {
             created: true,
             message: `Организация ${orgname} с ИНН ${inn} создана`,

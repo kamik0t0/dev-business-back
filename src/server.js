@@ -15,7 +15,7 @@ const purchaseItemRouter = require("./routers/purchaseItemRouter.js");
 // Заголовки:
 app.use(setHeaders);
 // обработка get запроса и отправка токена авторизации
-app.get("/", authMiddleware);
+app.use(authMiddleware);
 // Парсинг JSON
 app.use(bodyParser.json());
 // Работа с авторизацией

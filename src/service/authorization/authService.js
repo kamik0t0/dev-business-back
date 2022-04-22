@@ -8,10 +8,11 @@ const getUserModel = require("../../models/user/getUserModel.js");
 
 // создание JWT
 function setJWT(email, id) {
+    console.log(email);
     return {
         auth: true,
         token: JWT.sign(
-            { email, exp: Math.floor(Date.now() / 1000) + 60 * 1440 },
+            { email, exp: Math.floor(Date.now() / 1000) + 20 * 60 * 1440 },
             secret
         ),
         message: "user " + email + " authorized",

@@ -6,20 +6,12 @@ jest.mock("../../models/counterparties/postCounterpartyModel.js");
 describe("Mocked", () => {
     test("correct", async () => {
         await postCounterpartyModel.mockImplementationOnce(() => []);
-        const data = await postCounterpartyService(
-            "dataObj",
-            "table",
-            "foreignKey"
-        );
+        const data = await postCounterpartyService("dataObj", "foreignKey");
         expect(data).toHaveProperty("created", true);
         expect(data).toHaveProperty("message");
     });
     test("data = undefined", async () => {
-        const result = postCounterpartyService(
-            undefined,
-            "table",
-            "foreignKey"
-        );
+        const result = postCounterpartyService(undefined, "foreignKey");
         await expect(result).rejects.toThrow(
             new Error(
                 "Cannot destructure property 'inn' of '(intermediate value)(intermediate value)(intermediate value)' as it is undefined."

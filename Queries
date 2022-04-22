@@ -55,6 +55,7 @@ CREATE TABLE Counterparties (
     opf varchar(200) CHARACTER SET 'utf8',
     FOREIGN KEY (OrgsId)
         REFERENCES Orgs (id)
+        ON DELETE CASCADE
 );
 
 CREATE TABLE Sales (

@@ -8,6 +8,7 @@ module.exports = async function (table, id) {
             message: `Организация с id ${id} успешно удалена`,
         };
     } catch (error) {
+        console.log(error);
         throw new Error(error.message);
     }
 };

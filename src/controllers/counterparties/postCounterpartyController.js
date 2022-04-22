@@ -4,11 +4,10 @@ const createCounterpartyService = require("../../service/counterparties/postCoun
 module.exports = async function (req, res) {
     try {
         const data = req.body;
-        const { table, foreignKey } = req.query;
-        const result = await createCounterpartyService(data, table, foreignKey);
+        const { foreignKey } = req.query;
+        const result = await createCounterpartyService(data, foreignKey);
         return res.status(200).json(result);
     } catch (error) {
-        console.log(error);
         return res.status(400).json({ error: error.messge });
     }
 };

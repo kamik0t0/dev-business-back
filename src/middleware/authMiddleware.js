@@ -6,22 +6,19 @@ module.exports = function (req, res, next) {
     if (req.method === "OPTIONS") {
         next();
     }
-
     try {
         // получаем token из заголовка
         const token = req.headers.authorization.split(" ")[1];
-        // если токен не получен, то сообщаем
-        if (!token) {
-            return res.status(400).json({ message: "User not authorized" });
-        }
         // если получили то сверяем с ключем
         jwt.verify(token, secret);
-        // отправляем ответ клиенту
-        return res
-            .status(200)
-            .json({ auth: true, token, message: "user authorized" });
-        // в случае ошибки предлагаем авторизоваться
+        next();
     } catch (error) {
-        return res.status(400).json({ message: "Please login" });
+        if (error.message === "jwt expired") {
+            return res
+                .status(401)
+                .json({ error: new Error("Session expired, please login") });
+        } else {
+            next();
+        }
     }
 };

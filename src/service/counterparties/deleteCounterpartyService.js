@@ -1,8 +1,8 @@
 const deleteCounterpartyModel = require("../../models/counterparties/deleteCounterpartyModel.js");
 
-module.exports = async function (table, counterpartyId) {
+module.exports = async function (counterpartyId) {
     try {
-        await deleteCounterpartyModel(table, counterpartyId);
+        await deleteCounterpartyModel(counterpartyId);
         return {
             deleted: true,
             message: `Контрагент с id ${counterpartyId} успешно удалена`,

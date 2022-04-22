@@ -9,8 +9,8 @@ module.exports = async function (data, OrgId, CounterpartyId) {
                 CounterpartyId
             ),
             { positions } = data;
-
         positions.forEach((item) => {
+            console.log(item);
             postSaleItemsModel(insertId, item);
         });
 
