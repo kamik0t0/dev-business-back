@@ -6,7 +6,7 @@ const deleteSeleItemsModel = require("../../models/sales/items/deleteSaleItemsMo
 
 module.exports = async function (data, table, id) {
     try {
-        await updateSalesModel(data, table);
+        await updateSalesModel(data, table, id);
         const [items] = await getSaleItemsModel(id);
         const { positions } = data;
         // массив из id товаров в накладной полученных из БД

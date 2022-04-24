@@ -20,7 +20,9 @@ const errorObj = {
 
 describe("reg service Test", () => {
     test("Correct email and user doesn't exist in Data Base", async () => {
-        await getUserModel.mockImplementation(() => undefined);
+        await getUserModel.mockImplementation(() => {
+            return { id: false };
+        });
         bcrypt.compareSync.mockReturnValue(true);
         await mail.mockImplementation(() => {
             return {};
@@ -35,19 +37,20 @@ describe("reg service Test", () => {
 
     test("Correct mail and user already exist in Data Base ", async () => {
         await getUserModel.mockImplementation(() => {
-            return {};
+            return { id: true };
         });
 
-        const result = regService(testObj);
-        await expect(result).rejects.toThrow(
-            new Error(
-                `Пользователь с email ${testObj.email} уже зарегистрирован`
-            )
+        const result = await regService(testObj);
+        expect(result).toHaveProperty(
+            "regerror",
+            `Пользователь с email ${testObj.email} уже зарегистрирован`
         );
     });
 
     test("Wrong email and user doesn't exist in Data Base ", async () => {
-        await getUserModel.mockImplementation(() => undefined);
+        await getUserModel.mockImplementation(() => {
+            return { id: false };
+        });
         await mail.mockRejectedValue(
             new Error(
                 `550 Message was not accepted -- invalid mailbox.  Local mailbox ${errorObj.email} is unavailable: user not foundl`

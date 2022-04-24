@@ -2,6 +2,7 @@ const jwt = require("jsonwebtoken");
 const { secret } = require("../config.js");
 
 module.exports = function (req, res, next) {
+    console.log(req);
     // если метод запроса options то вызывается следующий mw
     if (req.method === "OPTIONS") {
         next();

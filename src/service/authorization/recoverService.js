@@ -6,8 +6,12 @@ const updateUserModel = require("../../models/user/updateUserModel.js");
 
 async function recoverService({ email, pass }) {
     try {
-        if ((await getUserModel(email)) === undefined)
-            throw new Error(`Пользователь с email ${email} не зарегистрирован`);
+        const { id } = await getUserModel(email);
+        if (!id) {
+            return {
+                message: `Пользователь с email ${email} не зарегистрирован`,
+            };
+        }
 
         const hashPassword = await bcrypt.hash(pass, 7);
         await mail(email, pass);

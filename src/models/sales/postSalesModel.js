@@ -6,6 +6,7 @@ module.exports = async function (
     CounterpartyId,
     { summ, NDS, total, date, myOrg, counterparty } = data
 ) {
+    console.log(date);
     const { orgname, inn, kpp = null, address, opf } = myOrg,
         {
             orgname: cl_orgname,

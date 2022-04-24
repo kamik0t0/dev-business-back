@@ -2,7 +2,7 @@ module.exports = function (req, res, next) {
     //  - получать запросы с другого порта только для моего приложения
     res.setHeader(
         "Access-Control-Allow-Origin",
-        "*"
+        "http://localhost:3000"
         // "https://deploy-test-business-assist.herokuapp.com"
         // "https://kamik0t0.github.io"
     );
@@ -15,8 +15,9 @@ module.exports = function (req, res, next) {
     );
     res.setHeader(
         "Access-Control-Allow-Headers",
-        "X-Requested-With, Content-Type, Authorization, charset, API-Key"
+        "X-Requested-With, Content-Type, Authorization, charset, API-Key, content-type, Cache-Control"
     );
     res.setHeader("Access-Control-Allow-Credentials", true);
+    console.log(res);
     next();
 };

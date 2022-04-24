@@ -5,12 +5,10 @@ const makeUpdateOrgQuery = require("../../utils/makeUpdageOrgQuery.js");
 module.exports = async function (
     data,
     table,
-    items,
-    itemIdName,
+    id,
     {
-        id = null,
         NDS: nds = null,
-        Waybill_date: waybill_date = null,
+        waybill_date = null,
         counterparty,
         counterpartyId: CounterpartyId = null,
         positions: update_items,
@@ -61,43 +59,4 @@ module.exports = async function (
             { cl_waybill_number: cl_waybill_number }
         )
     );
-    // .then(async () => {
-    //     // получаем товары из накладной
-    //     const [itemsInDB] = await DBCONNECT.query(
-    //         `Select * from ${items} where ${itemIdName} = ${id}`
-    //     );
-
-    //     // создаем массив из id товаров в накладной полученных из БД
-    //     let idArray = [];
-    //     itemsInDB.forEach((oldItem) => {
-    //         idArray.push(oldItem.id);
-    //     });
-
-    //     for (const item of update_items) {
-    //         // если id итерируемой накладной уже есть в БД - обновление данных
-    //         if (idArray.includes(item.id)) {
-    //             DBCONNECT.query(
-    //                 `UPDATE sales_items SET item_number = "${item.number}", nomenclature = "${item.nomenclature}", quantity = ${item.quantity}, price = "${item.price}", summ = ${item.summ}, nds_percent = ${item.NDSprcnt}, nds = ${item.NDS}, total = ${item.total} WHERE id = ${item.id};`
-    //             );
-    //             // если id итерируемой накладной отсутствует в БД - создание новой записи
-    //         } else if (!idArray.includes(item.id) && item.id === null) {
-    //             DBCONNECT.query(
-    //                 `INSERT sales_items (createdAt, ${itemIdName}, item_number, nomenclature, quantity, price, summ, nds_percent, nds, total) VALUES (NOW(), "${id}", "${item.number}", "${item.nomenclature}", "${item.quantity}", "${item.price}", "${item.summ}", "${item.NDSprcnt}", "${item.NDS}", "${item.total}");`
-    //             );
-    //         }
-    //     }
-
-    //     // создаем массив из id товаров пришедших от клиента
-    //     let idUpdateArray = [];
-    //     update_items.forEach((newItem) => {
-    //         idUpdateArray.push(newItem.id);
-    //     });
-
-    //     // если позиция удалена - удаление записи
-    //     idArray.forEach((id) => {
-    //         if (!idUpdateArray.includes(id)) {
-    //             DBCONNECT.query(`DELETE FROM ${items} WHERE id = ${id}`);
-    //         }
-    //     });
-    // });
 };

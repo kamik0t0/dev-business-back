@@ -25,11 +25,11 @@ async function authService({ email, pass }) {
         // поиск пользователя
         const { password, id } = await getUserModel(email);
         // если пользователь не существует
-        if (!id) throw new Error("wrong email");
+        if (!id) return { message: "Неправильный email" };
         // сравнение паролей в БД и теле запроса
         const validPassword = bcrypt.compareSync(pass, password);
         // если пароль не валидный
-        if (!validPassword) throw new Error("wrong pass");
+        if (!validPassword) return { message: "Неправильный пароль" };
         // создание токена и дополнительных полей
         return setJWT(email, id);
     } catch (error) {

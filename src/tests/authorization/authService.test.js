@@ -23,16 +23,17 @@ describe("authService test", () => {
             };
         });
         bcrypt.compareSync.mockReturnValue(false);
-        const result = authService("Right email", "Wrong Pass");
-        await expect(result).rejects.toThrow(new Error("wrong pass"));
+        const result = await authService("Right email", "Wrong Pass");
+        // await expect(result).rejects.toThrow(new Error("wrong pass"));
+        expect(result).toHaveProperty("message", "Неправильный пароль");
     });
     test("Error received id / pass", async () => {
         await getUserModel.mockImplementation(() => {
             return {};
         });
         bcrypt.compareSync.mockReturnValue(true);
-        const result = authService("Wrong email", "Wrong Pass");
-        await expect(result).rejects.toThrow(new Error("wrong email"));
+        const result = await authService("Wrong email", "Wrong Pass");
+        expect(result).toHaveProperty("message", "Неправильный email");
     });
 
     afterEach(() => {

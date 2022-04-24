@@ -57,13 +57,14 @@ describe("Recover service tests", () => {
     });
 
     test("No user in Data Base", async () => {
-        await getUserModel.mockImplementation(() => undefined);
+        await getUserModel.mockImplementation(() => {
+            return { id: false };
+        });
 
-        const result = recoverService(errorObj);
-        await expect(result).rejects.toThrow(
-            new Error(
-                `Пользователь с email ${errorObj.email} не зарегистрирован`
-            )
+        const result = await recoverService(errorObj);
+        expect(result).toHaveProperty(
+            "message",
+            `Пользователь с email ${errorObj.email} не зарегистрирован`
         );
     });
 

@@ -10,6 +10,6 @@ const recoverController = require("../controllers/authorization/recoverControlle
 router.use(formidable());
 router.post("/registration", regController);
 router.post("/", authController);
-router.patch("/forgot", recoverController);
+router.post("/forgot", recoverController);
 
 module.exports = router;

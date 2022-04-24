@@ -5,10 +5,8 @@ const makeUpdateOrgQuery = require("../../utils/makeUpdageOrgQuery.js");
 module.exports = async function (
     data,
     table,
-    items,
-    itemIdName,
+    id,
     {
-        id = null,
         NDS: nds = null,
         Waybill_date: waybill_date = null,
         counterparty,

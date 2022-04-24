@@ -5,10 +5,12 @@ const insertUserModel = require("../../models/user/insertUserModel.js");
 
 module.exports = async function ({ email, pass }) {
     try {
-        if (await getUserModel(email)) {
-            throw new Error(
-                `Пользователь с email ${email} уже зарегистрирован`
-            );
+        const { id } = await getUserModel(email);
+        if (id) {
+            console.log(id);
+            return {
+                regerror: `Пользователь с email ${email} уже зарегистрирован`,
+            };
         }
         const hashPassword = await bcrypt.hash(pass, 7);
         await insertUserModel(hashPassword, email);
