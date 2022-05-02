@@ -3,7 +3,6 @@ const deleteCounterpartyService = require("../../service/counterparties/deleteCo
 module.exports = async function (req, res) {
     try {
         const { counterpartyId } = req.query;
-        console.log(counterpartyId);
         const result = await deleteCounterpartyService(counterpartyId);
         return res.status(200).json(result);
     } catch (error) {

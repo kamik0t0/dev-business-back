@@ -4,7 +4,7 @@ module.exports = async function (
     data,
     OrgId,
     CounterpartyId,
-    { summ, NDS, total, date, myOrg, counterparty } = data
+    { summ, NDS, total, date, myOrg, counterparty, cl_waybill_number } = data
 ) {
     const { orgname, inn, kpp = null, address, opf } = myOrg,
         {
@@ -16,9 +16,9 @@ module.exports = async function (
         } = counterparty;
 
     return DBCONNECT.query(
-        `INSERT Purchases(CounterpartyId, OrgId, createdAt, orgname, inn, kpp, address,opf, cl_orgname, cl_inn, cl_kpp, cl_address, cl_opf, summ, nds, total, waybill_date) VALUES (${CounterpartyId}, ${OrgId}, NOW(), "${orgname}", "${inn}", "${kpp}", "${address}", "${opf}", "${cl_orgname}", "${cl_inn}", "${cl_kpp}", "${cl_address}", "${cl_opf}", "${summ}", "${NDS}", "${total}", "${date.slice(
+        `INSERT Purchases(CounterpartyId, OrgId, createdAt, orgname, inn, kpp, address,opf, cl_orgname, cl_inn, cl_kpp, cl_address, cl_opf, summ, nds, total, waybill_date, cl_waybill_number) VALUES (${CounterpartyId}, ${OrgId}, NOW(), "${orgname}", "${inn}", "${kpp}", "${address}", "${opf}", "${cl_orgname}", "${cl_inn}", "${cl_kpp}", "${cl_address}", "${cl_opf}", "${summ}", "${NDS}", "${total}", "${date.slice(
             0,
             -1
-        )}");`
+        )}", "${cl_waybill_number}");`
     );
 };

@@ -18,6 +18,5 @@ module.exports = function (req, res, next) {
         "X-Requested-With, Content-Type, Authorization, charset, API-Key, content-type, Cache-Control"
     );
     res.setHeader("Access-Control-Allow-Credentials", true);
-    console.log(res);
     next();
 };
