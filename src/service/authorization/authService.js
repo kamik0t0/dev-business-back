@@ -12,7 +12,10 @@ function setJWT(email, id) {
     return {
         auth: true,
         token: JWT.sign(
-            { email, exp: Math.floor(Date.now() / 1000) + 20 * 60 * 1440 },
+            {
+                email,
+                exp: Math.floor(Date.now() / 1000) * 60 * 1440,
+            },
             secret
         ),
         message: "user " + email + " authorized",

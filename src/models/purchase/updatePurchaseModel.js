@@ -8,7 +8,7 @@ module.exports = async function (
     id,
     {
         NDS: nds = null,
-        Waybill_date: waybill_date = null,
+        waybill_date = null,
         counterparty,
         counterpartyId: CounterpartyId = null,
         positions: update_items,
