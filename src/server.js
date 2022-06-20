@@ -26,11 +26,11 @@ app.use("/private", privateRouter);
 app.use("/counterparty", counterpartyRouter);
 // Работа с продажами
 app.use("/sales", salesRouter);
-// Работа с продажами
+// Работа с покупками
 app.use("/purchases", purchasesRouter);
-// Работа с продажами
-app.use("/sale", saleItemRouter);
-// Работа с продажами
-app.use("/purchase", purchaseItemRouter);
+// Запрос на позиции накладоной реализации
+app.use("/sales/*", saleItemRouter);
+// Запрос на позиции накладоной поступления
+app.use("/purchases/*", purchaseItemRouter);
 // старт сервера
 app.listen(PORT, () => console.log(`SERVER STARTS ON PORT ${PORT}`));
