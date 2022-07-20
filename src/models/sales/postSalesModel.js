@@ -1,12 +1,11 @@
 const DBCONNECT = require("../../dbConnect.js");
 
 module.exports = async function (
-    data,
+    { summ, nds, total, waybill_date, myOrg, counterparty } = data,
     OrgId,
-    CounterpartyId,
-    { summ, NDS, total, date, myOrg, counterparty } = data
+    CounterpartyId
 ) {
-    console.log(date);
+    console.log(waybill_date);
     const { orgname, inn, kpp = null, address, opf } = myOrg,
         {
             orgname: cl_orgname,
@@ -16,8 +15,26 @@ module.exports = async function (
             opf: cl_opf,
         } = counterparty;
 
+    console.log(
+        CounterpartyId,
+        OrgId,
+        orgname,
+        inn,
+        kpp,
+        address,
+        opf,
+        cl_orgname,
+        cl_inn,
+        cl_kpp,
+        cl_address,
+        cl_opf,
+        summ,
+        nds,
+        total
+    );
+
     return DBCONNECT.query(
-        `INSERT Sales(CounterpartyId, OrgId, createdAt, orgname, inn, kpp, address,opf, cl_orgname, cl_inn, cl_kpp, cl_address, cl_opf, summ, nds, total, waybill_date) VALUES (${CounterpartyId}, ${OrgId}, NOW(), "${orgname}", "${inn}", "${kpp}", "${address}", "${opf}", "${cl_orgname}", "${cl_inn}", "${cl_kpp}", "${cl_address}", "${cl_opf}", "${summ}", "${NDS}", "${total}", "${date.slice(
+        `INSERT Sales(CounterpartyId, OrgId, createdAt, orgname, inn, kpp, address,opf, cl_orgname, cl_inn, cl_kpp, cl_address, cl_opf, summ, nds, total, waybill_date) VALUES (${CounterpartyId}, ${OrgId}, NOW(), "${orgname}", "${inn}", "${kpp}", "${address}", "${opf}", "${cl_orgname}", "${cl_inn}", "${cl_kpp}", "${cl_address}", "${cl_opf}", "${summ}", "${nds}", "${total}", "${waybill_date.slice(
             0,
             -1
         )}");`

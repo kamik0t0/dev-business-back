@@ -7,7 +7,7 @@ module.exports = async function (
     table,
     id,
     {
-        NDS: nds = null,
+        nds: nds = null,
         waybill_date = null,
         counterparty,
         counterpartyId: CounterpartyId = null,

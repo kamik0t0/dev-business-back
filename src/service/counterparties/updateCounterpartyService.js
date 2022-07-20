@@ -1,7 +1,6 @@
 const updateCounterpartyModel = require("../../models/counterparties/updateCounterpartyModel.js");
 
 module.exports = async function (data, table) {
-    console.log(data, table);
     try {
         await updateCounterpartyModel(data, table);
         return {

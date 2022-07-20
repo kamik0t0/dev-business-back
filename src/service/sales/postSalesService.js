@@ -19,6 +19,7 @@ module.exports = async function (data, OrgId, CounterpartyId) {
             message: `Продажа успешно добавлена в базу данных`,
         };
     } catch (error) {
+        console.log(error);
         throw new Error(error.message);
     }
 };

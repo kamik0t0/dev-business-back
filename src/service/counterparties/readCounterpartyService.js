@@ -5,6 +5,6 @@ module.exports = async function (OrgId) {
         let [result] = await readCounterpartyModel(OrgId);
         return result;
     } catch (error) {
-        throw new Error(error.message);
+        throw new Error(error.sqlMessage);
     }
 };

@@ -11,10 +11,11 @@ module.exports = async function (
         if (await isDuplicate(inn, table))
             throw new Error(`Организация с ИНН ${inn} уже зарегистрирована`);
 
-        await createOrgModel(data, table, foreignKey);
+        const [{ insertId }] = await createOrgModel(data, table, foreignKey);
         return {
             created: true,
             message: `Организация ${orgname} с ИНН ${inn} создана`,
+            insertId,
         };
     } catch (error) {
         throw new Error(error.message);

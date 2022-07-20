@@ -2,7 +2,8 @@ const updateOrgModel = require("../../models/organization/updateOrgModel.js");
 
 module.exports = async function (data, table) {
     try {
-        await updateOrgModel(data, table);
+        const info = await updateOrgModel(data, table);
+        console.log(info);
         return {
             updated: true,
             message: `You successfuly update`,

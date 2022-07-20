@@ -2,6 +2,7 @@ const getSaleItemsService = require("../../../service/sales/items/getSaleItemsSe
 
 module.exports = async function (req, res) {
     try {
+        console.log(req.url);
         const { SaleId } = req.query;
         const result = await getSaleItemsService(SaleId);
         return res.status(200).json(result);

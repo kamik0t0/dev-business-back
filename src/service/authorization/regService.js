@@ -4,6 +4,7 @@ const getUserModel = require("../../models/user/getUserModel.js");
 const insertUserModel = require("../../models/user/insertUserModel.js");
 
 module.exports = async function ({ email, pass }) {
+    console.log(email, pass);
     try {
         const { id } = await getUserModel(email);
         if (id) {

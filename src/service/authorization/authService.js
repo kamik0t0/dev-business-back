@@ -19,20 +19,21 @@ function setJWT(email, id) {
             secret
         ),
         message: "user " + email + " authorized",
+        email,
         id,
     };
 }
 // Действия по авторизации
-async function authService({ email, pass }) {
+async function authService({ email: RequestedEmail, pass }) {
     try {
         // поиск пользователя
-        const { password, id } = await getUserModel(email);
+        const { password, id, email } = await getUserModel(RequestedEmail);
         // если пользователь не существует
-        if (!id) return { message: "Неправильный email" };
+        if (!id) throw new Error("Неправильный email");
         // сравнение паролей в БД и теле запроса
         const validPassword = bcrypt.compareSync(pass, password);
         // если пароль не валидный
-        if (!validPassword) return { message: "Неправильный пароль" };
+        if (!validPassword) throw new Error("Неправильный пароль");
         // создание токена и дополнительных полей
         return setJWT(email, id);
     } catch (error) {
