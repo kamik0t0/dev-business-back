@@ -3,32 +3,26 @@ const DBCONNECT = require("../../dbConnect.js");
 const makeUpdateOrgQuery = require("../../utils/makeUpdageOrgQuery.js");
 
 module.exports = async function (
-    data,
-    table,
-    id,
     {
-        NDS: nds = null,
+        nds = null,
         waybill_date = null,
-        counterparty,
-        counterpartyId: CounterpartyId = null,
-        positions: update_items,
+        cl_acc = null,
+        cl_address = null,
+        cl_bank = null,
+        cl_bik = null,
+        cl_inn,
+        cl_korr = null,
+        cl_kpp = null,
+        cl_opf = null,
+        cl_orgname = null,
+        CounterpartyId = null,
         summ = null,
         total = null,
         cl_waybill_number = null,
-    } = data
+    } = data,
+    table,
+    id
 ) {
-    let {
-        acc: cl_acc = null,
-        address: cl_address = null,
-        bank: cl_bank = null,
-        bik: cl_bik = null,
-        inn: cl_inn,
-        korr: cl_korr = null,
-        kpp: cl_kpp = null,
-        opf: cl_opf = null,
-        orgname: cl_orgname = null,
-    } = counterparty;
-
     return DBCONNECT.query(
         makeUpdateOrgQuery(
             table,

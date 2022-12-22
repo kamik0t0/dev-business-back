@@ -1,5 +1,5 @@
-const postPurchaseModel = require("../../models/Purchase/postPurchaseModel.js");
-const postPurchaseItemsModel = require("../../models/Purchase/items/postPurchaseItemsModel.js");
+const postPurchaseModel = require("../../models/purchase/postPurchaseModel.js");
+const postPurchaseItemsModel = require("../../models/purchase/items/postPurchaseItemsModel.js");
 
 module.exports = async function (data, OrgId, CounterpartyId) {
     try {

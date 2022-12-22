@@ -10,7 +10,6 @@ module.exports = async function (data, OrgId, CounterpartyId) {
             ),
             { positions } = data;
         positions.forEach((item) => {
-            console.log(item);
             postSaleItemsModel(insertId, item);
         });
 

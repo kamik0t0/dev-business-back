@@ -15,6 +15,23 @@ function DBCONNECT() {
 
 module.exports = DBCONNECT();
 
+// Создание базы данных с таблицами
+// docker build -t acc_helper .
+// docker run --name acc_helper -e MYSQL_ROOT_PASSWORD=pass -e MYSQL_DATABASE=acc_helper acc_helper
+// docker exec -it acc_helper mysql -u root -p
+
+// docker run -d --network business-helper --network-alias acc_helper -v acc_helper:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=pass -e MYSQL_DATABASE=acc_helper  acc_helper
+
+// docker run -dp 5600:5600 -w /business-back -v "$(pwd):/business-back" --network business-helper -e MYSQL_HOST=mysql -e MYSQL_USER=root -e MYSQL_PASSWORD=pass -e MYSQL_DB=acc_helper business-back sh -c "npm install && npm run dev"
+
+// docker run -dp 3000:3000 -w /business-front -v "$(pwd):/business-front" --network business-helper business-front sh -c "npm install && npm start"
+
+// docker run -d --network business-helper --network-alias mysql -v acc_helper-mysql-data:/var/lib/mysql mysql:5.7
+// docker exec -it bd3b8cb66c8ff5185e960643c6caa4c9c524d21ce32e5a5116932ba9efbe4230 mysql -u root -p
+// docker run -it --network business-helper nicolaka/netshoot
+// docker run -dp 3000:5600 -w /business-back -v "$(pwd):/business-back" --network business-helper business-back sh -c "npm install && npm run dev"
+// docker exec -it bd3b8cb66c8f mysql -p acc_helper
+
 /* Пишу здесь эти данные поскольку по факту они не имеют никакого значения и вся информация в базе не имеет никакой реальной ценности, т.е. я понимаю что в реальном проекте так делать не надо ;)
 
     const connection = mysql

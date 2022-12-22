@@ -1,3 +1,4 @@
 module.exports = {
-    secret: "SECRET_KEY_RANDOM",
+    access: "SECRET_KEY_RANDOM_ACCESS",
+    refresh: "SECRET_KEY_RANDOM_REFRESH",
 };

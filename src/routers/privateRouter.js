@@ -6,10 +6,11 @@ const createOrgController = require("../controllers/organization/postOrgControll
 const readOrgController = require("../controllers/organization/readOrgController.js");
 const del = require("../controllers/organization/deleteOrgController.js");
 const update = require("../controllers/organization/updateOrgController.js");
+const authMiddleware = require("../middleware/authMiddleware.js");
 
-router.post("/", createOrgController);
-router.get("/", readOrgController);
-router.delete("/", del);
-router.patch("/", update);
+router.post("/", authMiddleware, createOrgController);
+router.get("/", authMiddleware, readOrgController);
+router.delete("/", authMiddleware, del);
+router.patch("/", authMiddleware, update);
 
 module.exports = router;

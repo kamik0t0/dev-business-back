@@ -1,4 +1,4 @@
-const deletePurchaseModel = require("../../models/Purchase/deletePurchaseModel.js");
+const deletePurchaseModel = require("../../models/purchase/deletePurchaseModel.js");
 
 module.exports = async function (PurchaseId) {
     try {

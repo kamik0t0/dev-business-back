@@ -1,4 +1,4 @@
-const getPurchaseItemsModel = require("../../../models/Purchase/items/getPurchaseItemsModel.js");
+const getPurchaseItemsModel = require("../../../models/purchase/items/getPurchaseItemsModel.js");
 
 module.exports = async function (PurchaseId) {
     try {

@@ -1,4 +1,4 @@
-const getPurchaseModel = require("../../models/Purchase/getPurchaseModel.js");
+const getPurchaseModel = require("../../models/purchase/getPurchaseModel.js");
 
 module.exports = async function (OrgId) {
     try {

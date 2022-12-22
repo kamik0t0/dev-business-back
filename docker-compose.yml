@@ -1,0 +1,31 @@
+services:
+    # front:
+    #     image: business-front
+    #     command: sh -c "npm install && npm start"
+    #     ports:
+    #         - 3000:3000
+    #     working_dir: front/business-front
+    #     volumes:
+    #         - ./:/business-front
+    back:
+        image: business-back
+        command: sh -c "npm install && npm run dev"
+        ports:
+            - 5600:5600
+        working_dir: /business-back
+        volumes:
+            - ./:/business-back
+        environment:
+            MYSQL_HOST: mysql
+            MYSQL_USER: root
+            MYSQL_PASSWORD: pass
+            MYSQL_DB: acc_helper
+    mysql:
+        image: acc_helper
+        volumes:
+            - acc_helper:/var/lib/mysql
+        environment:
+            MYSQL_ROOT_PASSWORD: pass
+            MYSQL_DATABASE: acc_helper
+volumes:
+    acc_helper:

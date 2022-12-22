@@ -1,4 +1,13 @@
 use acc_helper;
+CREATE TABLE Tokens (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    createdAt DATETIME,
+    token VARCHAR(200) CHARACTER SET 'utf8',
+    UserId Int,
+        FOREIGN KEY (UserId)
+        REFERENCES Users (id)
+        ON DELETE CASCADE
+);
 
 CREATE TABLE Users (
     id INT PRIMARY KEY AUTO_INCREMENT,
@@ -87,7 +96,7 @@ CREATE TABLE Sales (
     OrgId int,
     cl_waybill_number varchar(50) CHARACTER SET 'utf8',
     FOREIGN KEY (CounterpartyId)
-        REFERENCES counterparties (id)
+        REFERENCES Counterparties (id)
         ON DELETE CASCADE,
             FOREIGN KEY (OrgId)
         REFERENCES Orgs (id)
@@ -123,7 +132,7 @@ CREATE TABLE Purchases (
     OrgId int,
     cl_waybill_number varchar(50) CHARACTER SET 'utf8',
     FOREIGN KEY (CounterpartyId)
-        REFERENCES counterparties (id)
+        REFERENCES Counterparties (id)
         ON DELETE CASCADE,
             FOREIGN KEY (OrgId)
         REFERENCES Orgs (id)
@@ -144,7 +153,7 @@ CREATE TABLE Sales_items (
     nds DECIMAL(15 , 2 ),
     total DECIMAL(15 , 2 ),
     FOREIGN KEY (SaleId)
-        REFERENCES sales (id)
+        REFERENCES Sales (id)
         ON DELETE CASCADE
 );
 
@@ -161,6 +170,6 @@ CREATE TABLE Purchases_items (
     nds DECIMAL(15 , 2 ),
     total DECIMAL(15 , 2 ),
     FOREIGN KEY (PurchaseId)
-        REFERENCES purchases (id)
+        REFERENCES Purchases (id)
         ON DELETE CASCADE
 );

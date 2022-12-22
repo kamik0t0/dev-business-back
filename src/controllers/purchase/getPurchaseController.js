@@ -1,4 +1,4 @@
-const getPurchaseService = require("../../service/Purchase/getPurchaseService.js");
+const getPurchaseService = require("../../service/purchase/getPurchaseService.js");
 
 module.exports = async function (req, res) {
     try {

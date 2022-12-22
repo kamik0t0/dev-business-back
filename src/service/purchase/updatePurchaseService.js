@@ -1,8 +1,8 @@
-const updatePurchaseModel = require("../../models/Purchase/updatePurchaseModel.js");
-const getPurchaseItemsModel = require("../../models/Purchase/items/getPurchaseItemsModel.js");
-const postPurchaseItemsModel = require("../../models/Purchase/items/postPurchaseItemsModel.js");
-const updatePurchaseItemsModel = require("../../models/Purchase/items/updatePurchaseItemsModel.js");
-const deleteSeleItemsModel = require("../../models/Purchase/items/deletePurchaseItemsModel.js");
+const updatePurchaseModel = require("../../models/purchase/updatePurchaseModel.js");
+const getPurchaseItemsModel = require("../../models/purchase/items/getPurchaseItemsModel.js");
+const postPurchaseItemsModel = require("../../models/purchase/items/postPurchaseItemsModel.js");
+const updatePurchaseItemsModel = require("../../models/purchase/items/updatePurchaseItemsModel.js");
+const deleteSeleItemsModel = require("../../models/purchase/items/deletePurchaseItemsModel.js");
 
 module.exports = async function (data, table, id) {
     try {

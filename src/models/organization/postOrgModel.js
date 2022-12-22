@@ -1,7 +1,7 @@
 const DBCONNECT = require("../../dbConnect.js");
 
 module.exports = async function (
-    { UserId, orgname, inn, kpp, address, director, opf },
+    { UserId, orgname, inn, kpp = null, address, director = null, opf },
     table,
     foreignKey
 ) {

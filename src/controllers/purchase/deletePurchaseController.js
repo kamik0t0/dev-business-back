@@ -1,4 +1,4 @@
-const deletePurchaseService = require("../../service/Purchase/deletePurchaseService.js");
+const deletePurchaseService = require("../../service/purchase/deletePurchaseService.js");
 
 module.exports = async function (req, res) {
     try {
